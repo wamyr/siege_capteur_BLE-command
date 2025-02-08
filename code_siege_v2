@@ -9,10 +9,7 @@ const int pinA0 = 0;  // GPIO A0 (vérifie bien que c'est le bon GPIO)
 int There_is_someone = -1;
 unsigned long start_timer;
 
-int previousButton1State = LOW;
-int previousButton2State = LOW;
-
-BleGamepad bleGamepad("ESP32_siege", "C'est sammy", 100);
+BleGamepad bleGamepad("ESP32_siege", "C'est bibi & sammy", 100);
 
 #define True 1
 #define False 0
@@ -64,6 +61,7 @@ void detectRising() {
 
 void start_game() {
   bleGamepad.press(BUTTON_1);
+
   /*bleKeyboard.press(KEY_LEFT_CTRL);  // Appuie sur la touche Ctrl
   bleKeyboard.press('.');            // Appuie sur la touche 'C'
   delay(100);                        // Maintient les touches enfoncées pendant 100 ms
@@ -73,6 +71,7 @@ void start_game() {
 
 void reset_game() {
   bleGamepad.press(BUTTON_2);
+
   /*bleKeyboard.press(KEY_LEFT_CTRL);  // Appuie sur la touche Ctrl
   bleKeyboard.press(',');            // Appuie sur la touche 'C'
   delay(100);                        // Maintient les touches enfoncées pendant 100 ms
