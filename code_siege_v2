@@ -5,7 +5,13 @@
 #include <Arduino.h>
 #include <BleGamepad.h> // https://github.com/lemmingDev/ESP32-BLE-Gamepad
 
-const int pinA0 = 0;  // GPIO A0 (vérifie bien que c'est le bon GPIO)
+// Définir le pin RX (GPIO3)
+const int pinRX = 3;
+
+// Variables pour stocker l'état
+volatile bool risingDetected = false;
+volatile bool fallingDetected = false;
+
 int There_is_someone = -1;
 unsigned long start_timer;
 
@@ -23,14 +29,17 @@ void reset_game();
 
 void setup()
 {
-    pinMode(pinA0, INPUT);  // Configuration du pin en entrée
+    Serial.end(); 
+    // Configurer le pin RX comme entrée
+    pinMode(pinRX, INPUT);
+   
     Serial.begin(115200);
 
     bleGamepad.begin();
 
   // Attacher les interruptions
-  attachInterrupt(digitalPinToInterrupt(pinA0), detectFalling, FALLING);
-  attachInterrupt(digitalPinToInterrupt(pinA0), detectRising, RISING);
+  attachInterrupt(digitalPinToInterrupt(pinRX), detectFalling, FALLING);
+  attachInterrupt(digitalPinToInterrupt(pinRX), detectRising, RISING);
 }
 
 void loop()
